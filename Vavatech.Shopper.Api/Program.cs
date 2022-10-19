@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 var app = WebApplication.Create();
 
 // .NET 6
@@ -40,10 +42,14 @@ app.MapGet("/api/customers/{customerId:int}/orders/{*period}", (int customerId, 
 
 // Query String
 // GET /api/customers?city={city}&street={street}
-app.MapGet("/api/customers", (string? city, string? street) => $"Hello Customer from {city} {street}");
+app.MapGet("/api/customers", (string? city, string? street, [FromHeader(Name ="user-agent")] string userAgent) => $"Hello Customer from {city} {street} {userAgent}");
 
 // GET /api/products?onstock=true&from=100&to=200
 app.MapGet("/api/products", (ProductQueryRecordParams parameters) => $"Hello Products {parameters.OnStock} {parameters.From} {parameters.To}");
+
+// GET /api/shops?location={lat}:{lng}
+// od .NET 7 [AsParameters]
+app.MapGet("/api/shops", ([FromQuery] LocationRecord location) => $"Get shop nearly {location.Latitude} {location.Longitude}");
 
 // GET /greetings/John?color=Red
 app.MapGet("/greetings/{name}", (HttpContext context) =>
@@ -61,8 +67,9 @@ app.MapGet("/welcome/{name}", (HttpRequest request, HttpResponse response) =>
 {
     var name = request.RouteValues["name"];
     var color = request.Query["color"];
+    var userAgent = request.Headers["user-agent"];
 
-    string message = $"Hello {name} {color}";
+    string message = $"Hello {name} {color} {userAgent}";
 
     response.WriteAsync(message);
 });
