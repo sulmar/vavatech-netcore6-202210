@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{1F72FDE9-444D-4552-BC3C-397086391715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.Shopper.Api", "Vavatech.Shopper.Api\Vavatech.Shopper.Api.csproj", "{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F72FDE9-444D-4552-BC3C-397086391715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F72FDE9-444D-4552-BC3C-397086391715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F72FDE9-444D-4552-BC3C-397086391715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F72FDE9-444D-4552-BC3C-397086391715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E0D6E62-F759-4DE2-9A26-73BE23FB8BE6}
+	EndGlobalSection
+EndGlobal
