@@ -17,8 +17,19 @@
             => new ValueTask<ProductQueryParams>(new ProductQueryParams(
                 bool.TryParse(context.Request.Query["onstock"], out var onstock) ? onstock : null,
                 decimal.TryParse(context.Request.Query["from"], out var from) ? from : null,
-                decimal.TryParse(context.Request.Query["to"], out var to) ? to: null));
-        
+                decimal.TryParse(context.Request.Query["to"], out var to) ? to : null
+                ));
+    }
+
+    // Rekord (record)
+    public record ProductQueryRecordParams(bool? OnStock, decimal? From, decimal? To)
+    {
+        public static ValueTask<ProductQueryRecordParams> BindAsync(HttpContext context)
+            => new ValueTask<ProductQueryRecordParams>(new ProductQueryRecordParams(
+                 bool.TryParse(context.Request.Query["onstock"], out var onstock) ? onstock : null,
+                decimal.TryParse(context.Request.Query["from"], out var from) ? from : null,
+                decimal.TryParse(context.Request.Query["to"], out var to) ? to : null
+                ));
 
     }
 }
