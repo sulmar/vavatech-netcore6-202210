@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Vavatech.Shopper.Domain;
 
 var app = WebApplication.Create();
 
@@ -75,8 +76,7 @@ app.MapGet("/welcome/{name}", (HttpRequest request, HttpResponse response) =>
 });
 
 // POST /api/customers
-
-app.MapPost("/api/customers", (Customer))
+app.MapPost("/api/customers", (Customer customer) => $"Hello {customer.FirstName} {customer.LastName}");
 
 
 app.Run();
