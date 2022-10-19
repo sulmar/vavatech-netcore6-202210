@@ -74,4 +74,9 @@ app.MapGet("/welcome/{name}", (HttpRequest request, HttpResponse response) =>
     response.WriteAsync(message);
 });
 
+// POST /api/customers
+
+app.MapPost("/api/customers", (Customer))
+
+
 app.Run();

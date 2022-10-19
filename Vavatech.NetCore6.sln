@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{1F72FDE9-444D-4552-BC3C-397086391715}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.Shopper.Api", "Vavatech.Shopper.Api\Vavatech.Shopper.Api.csproj", "{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vavatech.Shopper.Api", "Vavatech.Shopper.Api\Vavatech.Shopper.Api.csproj", "{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vavatech.Shopper.Domain", "Vavatech.Shopper.Domain\Vavatech.Shopper.Domain.csproj", "{0AB4BC7F-3701-42C2-8724-9AC5B3BDB817}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1F07FB6-CF03-4FA7-9E19-785B4E8645BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB4BC7F-3701-42C2-8724-9AC5B3BDB817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB4BC7F-3701-42C2-8724-9AC5B3BDB817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB4BC7F-3701-42C2-8724-9AC5B3BDB817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB4BC7F-3701-42C2-8724-9AC5B3BDB817}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
