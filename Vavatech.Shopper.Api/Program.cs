@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
 using Vavatech.Shopper.Api;
+using Vavatech.Shopper.Api.Models;
 
 var app = WebApplication.Create();
 
@@ -45,6 +47,28 @@ app.MapGet("/api/customers/{customerId:int}/orders/{*period}", (int customerId, 
 app.MapGet("/api/customers", (string? city, string? street) => $"Hello Customer from {city} {street}");
 
 // GET /api/products?onstock=true&from=100&to=200
+app.MapGet("/api/products", (ProductQueryParams parameters) => $"Hello Products {parameters.OnStock} {parameters.From} {parameters.To}");
 
+// GET /greetings/John?color=Red
+app.MapGet("/greetings/{name}", (HttpContext context) =>
+{
+    var name = context.Request.RouteValues["name"];
+    var color = context.Request.Query["color"];
+
+    string message = $"Hello {name} {color}";
+
+    context.Response.WriteAsync(message);
+});
+
+// GET /welcome/John?color=Red
+app.MapGet("/welcome/{name}", (HttpRequest request, HttpResponse response) =>
+{
+    var name = request.RouteValues["name"];
+    var color = request.Query["color"];
+
+    string message = $"Hello {name} {color}";
+
+    response.WriteAsync(message);
+});
 
 app.Run();
