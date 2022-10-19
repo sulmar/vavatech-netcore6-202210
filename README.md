@@ -6,8 +6,8 @@
 
 - ``` dotnet --version ``` - wyświetlenie wersji SDK
 - ``` dotnet --list-sdks ``` - wyświetlenie listy zainstalowanych SDK
-- ``` dotnet new globaljson ``` - utworzenie pliku global.json
-- ``` dotnet new globaljson --sdk-version {version} ``` - utworzenie pliku global.json i ustawienie wersji SDK
+- ``` dotnet new globaljson ``` - utworzenie pliku _global.json_
+- ``` dotnet new globaljson --sdk-version {version} ``` - utworzenie pliku _global.json_ i ustawienie wersji SDK
 
 ### Projekt
 - ``` dotnet new --list ``` - wyświetlenie listy dostępnych szablonów
