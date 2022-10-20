@@ -53,10 +53,13 @@ namespace Vavatech.Shopper.Infrastructure
         public void Remove(int id)
         {
             throw new NotImplementedException();
+
         }
 
         public void Update(Customer customer)
         {
+            string sql = "UPDATE Customers SET FirstName=@FirstName, Salary=@Salary";
+
             throw new NotImplementedException();
         }
     }
