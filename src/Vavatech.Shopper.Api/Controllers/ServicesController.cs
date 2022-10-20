@@ -2,8 +2,10 @@
 
 namespace Vavatech.Shopper.Api.Controllers
 {
+    // Kontroler dziedziczący po ControllerBase
+
     [Route("api/services")]
-    public class ServicesController : Controller
+    public class ServicesController : ControllerBase
     {
         [HttpGet]
         public string Get()
