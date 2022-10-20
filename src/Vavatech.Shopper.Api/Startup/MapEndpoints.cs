@@ -3,6 +3,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
+using System.IO;
 using System.Net.Mime;
 using Vavatech.Shopper.Api.Extensions;
 using Vavatech.Shopper.Domain;
@@ -221,14 +222,61 @@ namespace Vavatech.Shopper.Api.Startup
                 })
                 .GeneratePdf(stream);
 
-                stream.Position = 0;
+                // stream.Position = 0;
+                stream.Seek(0, SeekOrigin.Begin);
 
                 return Results.File(stream, MediaTypeNames.Application.Pdf);
 
             });
 
 
-            return app;
+            app.MapPost("/api/reports", async (HttpRequest request) =>
+            {
+                if (!request.HasFormContentType)
+                    return Results.BadRequest();
+
+                // var form = request.Form;
+                var form = await request.ReadFormAsync();
+
+                var file = form.Files["file1"];
+
+                var customerId = int.Parse(form["customerId"]);
+
+                if (file == null)
+                    return Results.BadRequest();
+
+                var path = Path.Combine("uploads", file.FileName);
+                using var writeStream = File.OpenWrite(path);
+                using var readStream = file.OpenReadStream();
+
+                TextReader reader = new StreamReader(readStream);
+                TextWriter writer = new StreamWriter(writeStream);
+
+                //while (reader.Peek() >= 0)
+                //{
+                //    string? line = reader.ReadLine();
+                //    writer.WriteLine(line + "!");
+                //}
+
+
+                // TODO: nie zapisuje do pliku
+                // writer.WriteLine("Hello World!");
+
+                await readStream.CopyToAsync(writeStream);
+
+
+                // writeStream.Position = 0;
+                //writeStream.Flush();
+                //writeStream.Close();
+
+                return Results.Accepted();
+
+                // return Results.File(writeStream);
+
+            });
+
+
+           return app;
         }
     }
 }

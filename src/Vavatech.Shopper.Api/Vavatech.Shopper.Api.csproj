@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Vavatech.Shopper.Infrastructure\Vavatech.Shopper.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="uploads\" />
+  </ItemGroup>
+
 </Project>
