@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using Vavatech.Shopper.Api.Extensions;
 using Vavatech.Shopper.Domain;
 using Vavatech.Shopper.Infrastructure;
 
@@ -137,5 +139,24 @@ app.MapPost("/api/customers", (Customer customer, ICustomerRepository repository
 
 });
 
+
+app.MapPut("/api/customers/{id}", (int id, Customer customer, ICustomerRepository repository) =>
+{
+    if (id != customer.Id)
+        return Results.BadRequest();
+
+    repository.Update(customer);
+
+    return Results.NoContent();
+});
+
+// app.MapMethods("/api/customers/{id}", new[] { "HEAD" }, () => Results.Ok());
+app.MapHead("/api/customers/{id}", () => Results.Ok());
+
+// app.MapMethods("/api/customers/{id}", new[] { "PATCH" }, () => Results.Ok());
+app.MapPatch("/api/customers/{id}", () => Results.Ok());
+
+
+app.MapDelete("api/customers/{id}", (int id, ICustomerRepository repository) => repository.Remove(id));
 
 app.Run();
