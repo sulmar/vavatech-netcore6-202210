@@ -5,7 +5,12 @@ builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>()
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 app.MapBasicEndpoints();
 app.MapCustomerEndpoints();
+
+
+
 
 app.Run();
