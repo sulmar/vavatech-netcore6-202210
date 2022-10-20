@@ -1,6 +1,5 @@
 ﻿namespace Vavatech.Shopper.Domain
-{
-
+{    
     public class Customer : BaseEntity
     {
         public string FirstName { get; set; }
