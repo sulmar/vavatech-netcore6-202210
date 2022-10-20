@@ -1,0 +1,16 @@
+﻿@protocol = http
+@port = 5000
+@host = localhost
+
+@baseUri={{protocol}}://{{host}}:{{port}}
+
+@table = A
+@code = CHF
+
+GET {{baseUri}}/api/exchanges/{{table}}/{{code}} HTTP/1.1
+
+###
+
+GET {{baseUri}}/api/exchanges/default
+
+###

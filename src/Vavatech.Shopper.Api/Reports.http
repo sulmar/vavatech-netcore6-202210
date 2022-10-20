@@ -1,0 +1,11 @@
+﻿@protocol = http
+@port = 5000
+@host = localhost
+
+@baseUri={{protocol}}://{{host}}:{{port}}
+
+###
+
+GET {{baseUri}}/api/reports
+
+###
