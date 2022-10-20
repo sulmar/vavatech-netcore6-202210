@@ -3,7 +3,7 @@
 namespace Vavatech.Shopper.Api.Controllers
 {
     [Route("api/services")]
-    public class ServicesController : ControllerBase
+    public class ServicesController : Controller
     {
         [HttpGet]
         public string Get()
