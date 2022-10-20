@@ -9,7 +9,7 @@ app.UseStaticFiles();
 
 app.MapBasicEndpoints();
 app.MapCustomerEndpoints();
-
+app.MapReportsEndpoints();
 
 
 

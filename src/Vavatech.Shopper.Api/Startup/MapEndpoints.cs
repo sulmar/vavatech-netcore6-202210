@@ -1,4 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using QuestPDF.Previewer;
+using System.Net.Mime;
 using Vavatech.Shopper.Api.Extensions;
 using Vavatech.Shopper.Domain;
 
@@ -28,7 +33,7 @@ namespace Vavatech.Shopper.Api.Startup
             // Route Params
             app.MapGet("/hello/{name}", (string name) => $"Hello {name}!");
 
-           
+
 
             // GET /api/products?onstock=true&from=100&to=200
             app.MapGet("/api/products", (ProductQueryRecordParams parameters) => $"Hello Products {parameters.OnStock} {parameters.From} {parameters.To}");
@@ -64,7 +69,7 @@ namespace Vavatech.Shopper.Api.Startup
             return app;
         }
 
-       public static WebApplication MapCustomerEndpoints(this WebApplication app)
+        public static WebApplication MapCustomerEndpoints(this WebApplication app)
         {
             // Reguły (constrains)
             // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-6.0#route-constraints
@@ -162,6 +167,66 @@ namespace Vavatech.Shopper.Api.Startup
 
 
             app.MapDelete("api/customers/{id}", (int id, ICustomerRepository repository) => repository.Remove(id));
+
+            return app;
+        }
+
+        public static WebApplication MapReportsEndpoints(this WebApplication app)
+        {
+            // GET api/reports?from=100&to=2000
+
+            app.MapGet("/api/reports", (decimal? from, decimal? to) =>
+            {
+                string filename = Path.Combine(app.Environment.WebRootPath, "lorem-ipsum.pdf");
+
+                // TODO: generate report
+                //  Stream stream = File.OpenRead(filename);
+
+                Stream stream = new MemoryStream();
+
+                // dotnet add package QuestPDF
+                // dotnet add package QuestPDF.Previewer
+                // https://www.questpdf.com/quick-start
+                Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        page.Size(PageSizes.A4);
+                        page.Margin(2, Unit.Centimetre);
+                        page.PageColor(Colors.White);
+                        page.DefaultTextStyle(x => x.FontSize(20));
+
+                        page.Header()
+                            .Text("Hello PDF!")
+                            .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
+
+                        page.Content()
+                            .PaddingVertical(1, Unit.Centimetre)
+                            .Column(x =>
+                            {
+                                x.Spacing(20);
+
+                                x.Item().Text(Placeholders.LoremIpsum());
+                                x.Item().Image(Placeholders.Image(200, 100));
+                            });
+
+                        page.Footer()
+                            .AlignCenter()
+                            .Text(x =>
+                            {
+                                x.Span("Page ");
+                                x.CurrentPageNumber();
+                            });
+                    });
+                })
+                .GeneratePdf(stream);
+
+                stream.Position = 0;
+
+                return Results.File(stream, MediaTypeNames.Application.Pdf);
+
+            });
+
 
             return app;
         }
