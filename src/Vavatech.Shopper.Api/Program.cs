@@ -94,11 +94,7 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 
-app.MapBasicEndpoints();
-app.MapCustomerEndpoints();
-app.MapReportsEndpoints();
-app.MapUserEndpoints();
-
+app.MapEndpoints();
 app.MapControllers();
 
 app.Run();
