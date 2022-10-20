@@ -28,8 +28,10 @@ namespace Vavatech.Shopper.Infrastructure
 
             string sql = "dbo.uspAddCustomer";
 
+            connection.Open();
             // var command = connection.CreateCommand();
-            var command = new SqlCommand(sql, connection);
+            using var command = new SqlCommand(sql, connection);
+
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@FirstName", customer.FirstName);
             command.Parameters.AddWithValue("@LastName", customer.LastName);
@@ -38,6 +40,7 @@ namespace Vavatech.Shopper.Infrastructure
 
             var id = (int)command.Parameters["CustomerId"].Value;
             customer.Id = id;
+            
         }
 
         public IEnumerable<Customer> Get()
@@ -45,8 +48,14 @@ namespace Vavatech.Shopper.Infrastructure
             throw new NotImplementedException();
         }
 
+        // dotnet add package System.Data.SqlClient
         public Customer Get(int id)
         {
+            string sql = "SELECT TOP FirstName, LastName, Salary from dbo.Customers WHERE CustomerId = @Id";
+            using var command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@Id", id);
+            command.ExecuteScalar();
+
             throw new NotImplementedException();
         }
 
