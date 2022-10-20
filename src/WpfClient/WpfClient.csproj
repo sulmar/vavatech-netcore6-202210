@@ -61,7 +61,7 @@
     <Compile Include="Infrastructure\ApiCustomerService.cs" />
     <Compile Include="IServices\ICustomerService.cs" />
     <Compile Include="ViewModels\CustomersViewModel.cs" />
-    <Page Include="CustomersView.xaml">
+    <Page Include="Views\CustomersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -69,7 +69,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CustomersView.xaml.cs">
+    <Compile Include="Views\CustomersView.xaml.cs">
       <DependentUpon>CustomersView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
