@@ -50,6 +50,8 @@ builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>()
 
 builder.Services.AddTransient<IValidator<Customer>, CustomerValidator>();
 
+builder.Services.AddTransient<IDocumentService, PdfDocumentService>();
+
 //builder.Services.AddHttpClient("JsonPlaceholder", httpClient=>
 //{
 //    httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");

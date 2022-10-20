@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vavatech.Shopper.Domain
 {
+
     public interface ICustomerRepository
     {
         IEnumerable<Customer> Get();

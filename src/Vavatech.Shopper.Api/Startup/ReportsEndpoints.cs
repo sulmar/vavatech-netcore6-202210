@@ -10,56 +10,26 @@ namespace Vavatech.Shopper.Api.Startup
     {
         public static WebApplication MapReportsEndpoints(this WebApplication app)
         {
-            // GET api/reports?from=100&to=2000
-
-            app.MapGet("/api/reports", (decimal? from, decimal? to) =>
+            app.MapGet("/api/reports/sample",() =>
             {
                 string filename = Path.Combine(app.Environment.WebRootPath, "lorem-ipsum.pdf");
 
-                // TODO: generate report
-                //  Stream stream = File.OpenRead(filename);
+
+                Stream stream = File.OpenRead(filename);
+
+                return Results.File(stream, MediaTypeNames.Application.Pdf);
+
+            });
+
+            // GET api/reports?from=100&to=2000
+
+            app.MapGet("/api/reports", (decimal? from, decimal? to, IDocumentService documentService) =>
+            {
+                // string filename = Path.Combine(app.Environment.WebRootPath, "lorem-ipsum.pdf");
 
                 Stream stream = new MemoryStream();
 
-                // dotnet add package QuestPDF
-                // dotnet add package QuestPDF.Previewer
-                // https://www.questpdf.com/quick-start
-                Document.Create(container =>
-                {
-                    container.Page(page =>
-                    {
-                        page.Size(PageSizes.A4);
-                        page.Margin(2, Unit.Centimetre);
-                        page.PageColor(Colors.White);
-                        page.DefaultTextStyle(x => x.FontSize(20));
-
-                        page.Header()
-                            .Text("Hello PDF!")
-                            .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
-
-                        page.Content()
-                            .PaddingVertical(1, Unit.Centimetre)
-                            .Column(x =>
-                            {
-                                x.Spacing(20);
-
-                                x.Item().Text(Placeholders.LoremIpsum());
-                                x.Item().Image(Placeholders.Image(200, 100));
-                            });
-
-                        page.Footer()
-                            .AlignCenter()
-                            .Text(x =>
-                            {
-                                x.Span("Page ");
-                                x.CurrentPageNumber();
-                            });
-                    });
-                })
-                .GeneratePdf(stream);
-
-                // stream.Position = 0;
-                stream.Seek(0, SeekOrigin.Begin);
+                documentService.GenerateSamplePdf(stream);                
 
                 return Results.File(stream, MediaTypeNames.Application.Pdf);
 

@@ -6,6 +6,11 @@
 
 ###
 
+GET {{baseUri}}/api/reports/sample
+
+
+### 
+
 GET {{baseUri}}/api/reports
 
 ###
