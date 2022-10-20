@@ -35,7 +35,7 @@ builder.Configuration.AddInMemoryCollection(new Dictionary<string, string>
     }
 );
 
-builder.Configuration.AddKeyPerFile("key-name");
+// builder.Configuration.AddKeyPerFile("key-name");
 
 string googleSecretKey = builder.Configuration["GoogleSecretKey"];
 
@@ -87,6 +87,9 @@ builder.Services.AddHttpClient<NbpApiService>(httpClient =>
     httpClient.BaseAddress = new Uri(builder.Configuration["NbpApi:Url"]);
 });
 
+
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 app.UseStaticFiles();
@@ -96,5 +99,6 @@ app.MapCustomerEndpoints();
 app.MapReportsEndpoints();
 app.MapUserEndpoints();
 
+app.MapControllers();
 
 app.Run();
