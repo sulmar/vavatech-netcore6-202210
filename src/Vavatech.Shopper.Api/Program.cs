@@ -1,7 +1,13 @@
+using FluentValidation;
+using Vavatech.Shopper.Domain.Validators;
+
+
 // var app = WebApplication.Create();
 
 var builder = WebApplication.CreateBuilder();
 builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>(); // rejestracja us³ugi w kontenerze wstrzykiwania zale¿noœci (Dependency Injection)
+
+builder.Services.AddTransient<IValidator<Customer>, CustomerValidator>();
 
 var app = builder.Build();
 

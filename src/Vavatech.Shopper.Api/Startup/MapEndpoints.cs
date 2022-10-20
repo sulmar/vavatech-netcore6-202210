@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using QuestPDF.Previewer;
-using System.IO;
 using System.Net.Mime;
 using Vavatech.Shopper.Api.Extensions;
-using Vavatech.Shopper.Domain;
 
 namespace Vavatech.Shopper.Api.Startup
 {
@@ -138,8 +136,16 @@ namespace Vavatech.Shopper.Api.Startup
 
             // POST /api/customers
             // Content-Type: application/json
-            app.MapPost("/api/customers", (Customer customer, ICustomerRepository repository) =>
+            app.MapPost("/api/customers", (
+                Customer customer, 
+                ICustomerRepository repository, 
+                IValidator<Customer> validator) =>
             {
+                var validationResult = validator.Validate(customer);
+
+                if (!validationResult.IsValid)
+                    return Results.ValidationProblem(validationResult.ToDictionary());
+
                 repository.Add(customer);
 
                 // zła praktyka
@@ -250,7 +256,10 @@ namespace Vavatech.Shopper.Api.Startup
                 using var readStream = file.OpenReadStream();
 
                 TextReader reader = new StreamReader(readStream);
-                TextWriter writer = new StreamWriter(writeStream);
+                StreamWriter writer = File.AppendText(path);
+
+                // TODO: nie zapisuje do pliku
+                writer.WriteLine("Hello World!");
 
                 //while (reader.Peek() >= 0)
                 //{
@@ -259,8 +268,7 @@ namespace Vavatech.Shopper.Api.Startup
                 //}
 
 
-                // TODO: nie zapisuje do pliku
-                // writer.WriteLine("Hello World!");
+
 
                 await readStream.CopyToAsync(writeStream);
 
