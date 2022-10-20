@@ -322,6 +322,13 @@ namespace Vavatech.Shopper.Api.Startup
                 return Results.Stream(stream, MediaTypeNames.Application.Json);
             });
 
+            app.MapGet("/api/exchange/defalt", async (NbpApiService client) =>
+            {
+                var stream = await client.GetDefaultRate();
+
+                return Results.Stream(stream, MediaTypeNames.Application.Json);
+            });
+
             return app;
             
 

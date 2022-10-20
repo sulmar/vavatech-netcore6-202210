@@ -21,12 +21,19 @@ builder.Services.AddTransient<IValidator<Customer>, CustomerValidator>();
 //    httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
 //});
 
+string jsonplaceholderUrl = builder.Configuration["jsonplaceholder"];
+
+// string nbpApiUrl = builder.Configuration["NbpApi:Url"];
+
+builder.Services.Configure<NbpApiServiceOptions>(builder.Configuration.GetSection("NbpApi"));
+
+Console.WriteLine(jsonplaceholderUrl);
 
 // dotnet add package Refit.HttpClientFactory
 builder.Services.AddRefitClient<IJsonPlaceholderService>()
     .ConfigureHttpClient(httpClient =>
     {
-        httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
+        httpClient.BaseAddress = new Uri(jsonplaceholderUrl);
     });
    
 
@@ -38,7 +45,7 @@ builder.Services.AddRefitClient<IJsonPlaceholderService>()
 
 builder.Services.AddHttpClient<NbpApiService>(httpClient =>
 {
-    httpClient.BaseAddress = new Uri("http://api.nbp.pl");
+    httpClient.BaseAddress = new Uri(builder.Configuration["NbpApi:Url"]);
 });
 
 var app = builder.Build();
