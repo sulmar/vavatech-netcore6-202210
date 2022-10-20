@@ -19,6 +19,8 @@ if (builder.Environment.IsEnvironment("Testing"))
 // Domyœlni providerzy
 builder.Configuration.AddJsonFile("appsettings.json", optional: false);
 builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
+builder.Configuration.AddUserSecrets<Program>();
+
 builder.Configuration.AddEnvironmentVariables(); // --ASPNETCORE_NbpApi=USD 
 builder.Configuration.AddCommandLine(args); // --NbpApi__Code=USD
 
@@ -32,6 +34,12 @@ builder.Configuration.AddInMemoryCollection(new Dictionary<string, string>
         { "NbpApi:Table", "A" },
     }
 );
+
+builder.Configuration.AddKeyPerFile("key-name");
+
+string googleSecretKey = builder.Configuration["GoogleSecretKey"];
+
+string secretContent = builder.Configuration["key-name"];
 
 builder.Configuration.AddEnvironmentVariables("API"); // --API_NbpApi = USD
 
