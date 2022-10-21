@@ -24,6 +24,9 @@ namespace Vavatech.Shopper.Api.Controllers
             return Ok(products);
         }
 
+        // GET api/products/1.json
+        // Accept: application/xml
+        // [FormatFilter]
         [HttpGet("{id:int:min(1)}", Name = "GetProductById")]
         public ActionResult<Product> Get(int id)
         {

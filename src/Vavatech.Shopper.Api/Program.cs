@@ -2,6 +2,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Refit;
+using Serilog;
+using Serilog.Formatting.Compact;
 using Vavatech.Shopper.Api.Services;
 using Vavatech.Shopper.Domain.Validators;
 
@@ -9,6 +11,22 @@ using Vavatech.Shopper.Domain.Validators;
 // var app = WebApplication.Create();
 
 var builder = WebApplication.CreateBuilder(args);
+
+// builder.Logging.AddJsonConsole();
+
+// dotnet add package Serilog.AspNetCore
+builder.Host.UseSerilog((context, logger) =>
+{
+    // Sinks
+    logger.WriteTo.Console();
+    logger.WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day);
+    logger.WriteTo.File(new CompactJsonFormatter(), "logs/log.json");
+
+    // dotnet add package Serilog.Sinks.Seq
+    logger.WriteTo.Seq("http://localhost:5341");
+
+});
+
 
 // SETX ASPNETCORE_ENVIRONMENT="Testing"
 string environmentName = builder.Environment.EnvironmentName;

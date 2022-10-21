@@ -19,7 +19,11 @@ namespace Vavatech.Shopper.Infrastructure
 
         public void Send(Product product)
         {
-            logger.LogInformation($"Product {product.Name} was added.");
+            // zła praktyka!
+            // logger.LogInformation($"Product {product.Name} was added.");
+
+            // dobra praktyka
+            logger.LogInformation("Product {Name} was added", product.Name);
         }
     }
 }
