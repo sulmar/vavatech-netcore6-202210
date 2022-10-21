@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Vavatech.Shopper.Api.Controllers
 {
@@ -28,6 +29,9 @@ namespace Vavatech.Shopper.Api.Controllers
         // Accept: application/xml
         // [FormatFilter]
         [HttpGet("{id:int:min(1)}", Name = "GetProductById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public ActionResult<Product> Get(int id)
         {
             Product product = _productRepository.Get(id);
