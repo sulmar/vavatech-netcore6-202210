@@ -106,8 +106,14 @@ builder.Services.AddHealthChecks()
             return HealthCheckResult.Unhealthy();
     })
     .AddCheck<NbpApiHealthCheck>("NBPApi");
-    
 
+
+// dotnet add package Swashbuckle.AspNetCore    
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new() { Title = "Vavatech API", Version = "1.0" });
+});
 
 //builder.Services.AddHttpClient("JsonPlaceholder", httpClient=>
 //{
@@ -153,8 +159,9 @@ builder.Services.AddControllers();
 builder.Services.AddFluentValidationAutoValidation();
 
 
-
 var app = builder.Build();
+
+app.UseHttpsRedirection();
 
 // Middleware (warstwa poœrednia)
 
@@ -218,9 +225,13 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 });
 
 
-// /healthchecks-ui
-app.MapHealthChecksUI();
+if (app.Environment.IsDevelopment())
+{   
+    app.MapHealthChecksUI();  // /healthchecks-ui
 
+    app.UseSwagger();
+    app.UseSwaggerUI(); // /swagger
+}
 
 
 app.Run();
