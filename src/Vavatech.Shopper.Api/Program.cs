@@ -50,7 +50,6 @@ builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>()
 builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
 
 builder.Services.AddTransient<IValidator<Customer>, CustomerValidator>();
-
 builder.Services.AddTransient<IDocumentService, PdfDocumentService>();
 
 //builder.Services.AddHttpClient("JsonPlaceholder", httpClient=>

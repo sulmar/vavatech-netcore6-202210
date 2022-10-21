@@ -60,6 +60,11 @@ namespace Vavatech.Shopper.Api.Startup
                 response.WriteAsync(message);
             });
 
+            app.MapGet("/update", (HttpResponse res) =>
+            {
+                return Results.Extensions.NotModified();
+            });
+            
 
             return app;
         }
