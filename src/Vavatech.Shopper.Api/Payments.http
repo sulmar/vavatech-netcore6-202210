@@ -1,0 +1,30 @@
+﻿@protocol = http
+@port = 5000
+@host = localhost
+
+@baseUri={{protocol}}://{{host}}:{{port}}
+
+@name = "Marcin"
+
+GET {{baseUri}}/api/customers/ HTTP/1.1
+
+###
+
+GET {{baseUri}}/api/customers/{{name}}
+
+###
+
+GET {{baseUri}}/welcome/{{name}}?color=yellow
+
+###
+
+POST {{baseUri}}/api/customers 
+Content-Type: application/json
+
+{
+    "FirstName":"Marcin",
+    "LastName":"Sulecki",
+    "Salary":1000
+}
+
+###
