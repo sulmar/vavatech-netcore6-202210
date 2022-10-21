@@ -45,8 +45,13 @@ namespace Vavatech.Shopper.Api.Controllers
         //}
 
         [HttpPost]
-        public ActionResult<Product> Post(Product product, [FromServices] IMediator mediator)
+        public ActionResult<Product> Post([FromBody] Product product, [FromServices] IMediator mediator)
         {
+            if (product.Color == "Red")
+            {
+                ModelState.AddModelError("Color", "Czerwony jest zabroniony.");
+            }
+
             if (!ModelState.IsValid)
                 return ValidationProblem(ModelState);
 

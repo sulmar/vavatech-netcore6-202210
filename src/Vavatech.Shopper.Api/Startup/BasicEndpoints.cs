@@ -31,7 +31,7 @@ namespace Vavatech.Shopper.Api.Startup
 
 
             // GET /api/products?onstock=true&from=100&to=200
-            app.MapGet("/api/products", (ProductQueryRecordParams parameters) => $"Hello Products {parameters.OnStock} {parameters.From} {parameters.To}");
+            //app.MapGet("/api/products", (ProductQueryRecordParams parameters) => $"Hello Products {parameters.OnStock} {parameters.From} {parameters.To}");
 
             // GET /api/shops?location={lat}:{lng}
             // od .NET 7 [AsParameters]
