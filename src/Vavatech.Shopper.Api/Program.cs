@@ -1,4 +1,5 @@
 using FluentValidation;
+using MediatR;
 using Refit;
 using Vavatech.Shopper.Api.Services;
 using Vavatech.Shopper.Domain.Validators;
@@ -51,6 +52,10 @@ builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
 
 builder.Services.AddTransient<IValidator<Customer>, CustomerValidator>();
 builder.Services.AddTransient<IDocumentService, PdfDocumentService>();
+builder.Services.AddTransient<IMessageSender, FakeMessageSender>();
+
+
+builder.Services.AddMediatR(typeof(Program));
 
 //builder.Services.AddHttpClient("JsonPlaceholder", httpClient=>
 //{
