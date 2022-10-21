@@ -45,7 +45,10 @@ namespace Vavatech.Shopper.Api.Startup
                 Customer customer => Results.Ok(customer),
                 null => Results.NotFound()
             })
-                .WithName("GetCustomerById");
+                .WithName("GetCustomerById")
+                .Produces<Customer>(StatusCodes.Status200OK)
+                .Produces(StatusCodes.Status404NotFound);
+                
 
             app.MapGet("/api/customers/{name}", (string name) => $"Hello Customer {name}");
             app.MapGet("/api/customers/{customerId:int}/orders/{orderId:int:min(3000)}", (int customerId, int orderId) => $"Hello Order {orderId} for Customer Id = {customerId}");
