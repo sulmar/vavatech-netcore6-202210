@@ -7,7 +7,9 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Refit;
 using Serilog;
 using Serilog.Formatting.Compact;
+using System.Diagnostics;
 using Vavatech.Shopper.Api.HealthChecks;
+using Vavatech.Shopper.Api.Middlewares;
 using Vavatech.Shopper.Api.Services;
 using Vavatech.Shopper.Domain.Validators;
 
@@ -154,8 +156,57 @@ builder.Services.AddFluentValidationAutoValidation();
 
 var app = builder.Build();
 
-app.UseStaticFiles();
+// Middleware (warstwa poœrednia)
 
+// Console Logger Middleware
+
+#region Middleware Lambda
+
+//app.Use(async (context, next) =>
+//{
+//    Console.WriteLine($"{context.Request.Method} {context.Request.Path} {context.Connection.RemoteIpAddress}");
+
+//    await next();
+
+//    Console.WriteLine($"{context.Response.StatusCode}");
+
+//});
+
+
+// Debug Logger Middleware
+
+//app.Use(async (context, next) =>
+//{
+//    Debug.WriteLine($"{context.Request.Method} {context.Request.Path}");
+
+//    await next();
+
+//    Debug.WriteLine($"{context.Response.StatusCode}");
+//});
+
+
+//// Secret Key Middleware
+//app.Use(async (context, next) =>
+//{
+//    if (context.Request.Headers.TryGetValue("X-Secret-Key", out var secretKey) && secretKey == "123")
+//    {
+//        await next();
+//    }
+//    else
+//    {
+//        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+//    }
+//});
+#endregion
+
+//app.UseMiddleware<ConsoleLoggerMiddleware>();
+//app.UseMiddleware<DebugLoggerMiddleware>();
+// app.UseMiddleware<SecretKeyMiddleware>();
+
+app.UseLogger();
+app.UseSecretKey();
+
+app.UseStaticFiles();
 app.MapEndpoints();
 app.MapControllers();
 
