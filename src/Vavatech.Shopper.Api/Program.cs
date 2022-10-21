@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Refit;
 using Vavatech.Shopper.Api.Services;
@@ -59,6 +60,10 @@ builder.Services.AddTransient<IMessageSender, FakeMessageSender>();
 
 builder.Services.AddMediatR(typeof(Program));
 
+
+
+
+
 //builder.Services.AddHttpClient("JsonPlaceholder", httpClient=>
 //{
 //    httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
@@ -98,6 +103,9 @@ builder.Services.AddHttpClient<NbpApiService>(httpClient =>
 
 
 builder.Services.AddControllers();
+
+// dotnet add package FluentValidation.AspNetCore
+builder.Services.AddFluentValidationAutoValidation();
 
 var app = builder.Build();
 

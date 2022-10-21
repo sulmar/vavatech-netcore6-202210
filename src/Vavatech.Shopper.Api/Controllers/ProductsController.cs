@@ -47,6 +47,9 @@ namespace Vavatech.Shopper.Api.Controllers
         [HttpPost]
         public ActionResult<Product> Post(Product product, [FromServices] IMediator mediator)
         {
+            if (!ModelState.IsValid)
+                return ValidationProblem(ModelState);
+
             mediator.Publish(new AddedProduct(product));
 
             return CreatedAtRoute("GetProductById", new { product.Id }, product);
