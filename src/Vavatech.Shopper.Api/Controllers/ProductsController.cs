@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Vavatech.Shopper.Api.Controllers
 {
@@ -17,9 +19,18 @@ namespace Vavatech.Shopper.Api.Controllers
             _productRepository = productRepository;        
         }
 
+        [Authorize(Roles ="Developer,Trainer")]
         [HttpGet]
         public ActionResult<IEnumerable<Product>> Get()
         {
+            if (!this.User.Identity.IsAuthenticated)
+                return Unauthorized();
+
+            if (!this.User.IsInRole("Developer"))
+                return Forbid();
+
+            string email = this.User.FindFirstValue(ClaimTypes.Email);
+
             var products = _productRepository.Get();
 
             return Ok(products);

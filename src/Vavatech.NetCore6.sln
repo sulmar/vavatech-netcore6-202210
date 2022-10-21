@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vavatech.Shopper.Infrastruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfClient", "WpfClient\WpfClient.csproj", "{389A47BA-6D4E-439E-8769-F4CF7F57D3C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService.Api", "AuthService.Api\AuthService.Api.csproj", "{526FF47C-E043-4277-956C-B844DD21638F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{389A47BA-6D4E-439E-8769-F4CF7F57D3C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{389A47BA-6D4E-439E-8769-F4CF7F57D3C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{389A47BA-6D4E-439E-8769-F4CF7F57D3C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{526FF47C-E043-4277-956C-B844DD21638F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{526FF47C-E043-4277-956C-B844DD21638F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{526FF47C-E043-4277-956C-B844DD21638F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{526FF47C-E043-4277-956C-B844DD21638F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

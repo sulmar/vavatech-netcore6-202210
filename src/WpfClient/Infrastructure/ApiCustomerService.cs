@@ -38,8 +38,10 @@ namespace WpfClient.Infrastructure
 
         public async Task<IEnumerable<Customer>> GetAsync()
         {
+            string token = "";
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("user-agent", "WPFClient");
+            client.DefaultRequestHeaders.Add("Authorization", token);
             var content = await client.GetStringAsync("/api/customers");
 
             var customers = JsonConvert.DeserializeObject<IEnumerable<Customer>>(content);

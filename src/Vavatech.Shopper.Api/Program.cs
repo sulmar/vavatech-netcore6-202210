@@ -2,12 +2,15 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.IdentityModel.Tokens;
 using Refit;
 using Serilog;
 using Serilog.Formatting.Compact;
 using System.Diagnostics;
+using System.Text;
 using Vavatech.Shopper.Api.HealthChecks;
 using Vavatech.Shopper.Api.Middlewares;
 using Vavatech.Shopper.Api.Services;
@@ -158,10 +161,34 @@ builder.Services.AddControllers();
 // dotnet add package FluentValidation.AspNetCore
 builder.Services.AddFluentValidationAutoValidation();
 
+string secretKey = "your-256-bit-secret";
+
+var key = Encoding.UTF8.GetBytes(secretKey);
+
+// dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = false,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidIssuer = "http://myauthapi.com",
+        ValidateAudience = false,
+        ValidAudience = "http://myshopper.com"
+    };
+});
+
+builder.Services.AddAuthorization();
+
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+
 
 // Middleware (warstwa poœrednia)
 
@@ -210,8 +237,14 @@ app.UseHttpsRedirection();
 // app.UseMiddleware<DebugLoggerMiddleware>();
 // app.UseMiddleware<SecretKeyMiddleware>();
 
-app.UseLogger();
+// app.UseLogger();
 // app.UseSecretKey();
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication(); // <-- uwaga na kolejnoœæ!
+app.UseAuthorization();
+
 
 app.UseStaticFiles();
 app.MapEndpoints();
