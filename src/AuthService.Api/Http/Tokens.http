@@ -1,0 +1,19 @@
+﻿@protocol = https
+@port = 5011
+@host = localhost
+
+@baseUri={{protocol}}://{{host}}:{{port}}
+
+@login = "john"
+@password = "123"
+
+###
+
+POST {{baseUri}}/api/token/create
+Content-Type: application/json
+
+{
+    "login":{{login}},
+    "password":{{password}}
+}
+###
