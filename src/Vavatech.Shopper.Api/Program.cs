@@ -49,9 +49,11 @@ builder.Configuration.AddEnvironmentVariables("API"); // --API_NbpApi = USD
 
 builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>(); // rejestracja us³ugi w kontenerze wstrzykiwania zale¿noœci (Dependency Injection)
 builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
+builder.Services.AddSingleton<IPaymentRepository, InMemoryPaymentRepository>();
 
 builder.Services.AddTransient<IValidator<Customer>, CustomerValidator>();
 builder.Services.AddTransient<IDocumentService, PdfDocumentService>();
+
 builder.Services.AddTransient<IMessageSender, FakeMessageSender>();
 
 

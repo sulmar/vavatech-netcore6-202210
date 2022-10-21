@@ -5,6 +5,4 @@
         IEnumerable<Product> GetByColor(string color);
     }
 
-   
-
 }
