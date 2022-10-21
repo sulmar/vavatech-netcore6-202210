@@ -8,6 +8,8 @@ namespace Vavatech.Shopper.Api.Startup
     {
         public static WebApplication MapBasicEndpoints(this WebApplication app)
         {
+            app.MapGet("/Ping", () => "Pong");
+
 
             // .NET 6
             var handle = () => "Hello from lambda variable!";

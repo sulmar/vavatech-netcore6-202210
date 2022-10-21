@@ -1,9 +1,13 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HealthChecks.UI.Client;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Refit;
 using Serilog;
 using Serilog.Formatting.Compact;
+using Vavatech.Shopper.Api.HealthChecks;
 using Vavatech.Shopper.Api.Services;
 using Vavatech.Shopper.Domain.Validators;
 
@@ -78,8 +82,29 @@ builder.Services.AddTransient<IMessageSender, FakeMessageSender>();
 
 builder.Services.AddMediatR(typeof(Program));
 
+// dotnet add package AspNetCore.HealthChecks.UI
+// dotnet add package AspNetCore.HealthChecks.UI.InMemory.Storage
+builder.Services.AddHealthChecksUI(options =>
+{
+    options.SetEvaluationTimeInSeconds(15);
+    options.AddHealthCheckEndpoint("Vavatech API", "/health");
+}).AddInMemoryStorage();
 
 
+// Health Check
+builder.Services.AddHealthChecks()
+    .AddCheck("Ping", () => HealthCheckResult.Healthy())
+    .AddCheck("Random", () =>
+    {
+        if (DateTime.Now.Minute % 2 == 0)
+        {
+            return HealthCheckResult.Healthy();
+        }
+        else
+            return HealthCheckResult.Unhealthy();
+    })
+    .AddCheck<NbpApiHealthCheck>("NBPApi");
+    
 
 
 //builder.Services.AddHttpClient("JsonPlaceholder", httpClient=>
@@ -125,11 +150,24 @@ builder.Services.AddControllers();
 // dotnet add package FluentValidation.AspNetCore
 builder.Services.AddFluentValidationAutoValidation();
 
+
+
 var app = builder.Build();
 
 app.UseStaticFiles();
 
 app.MapEndpoints();
 app.MapControllers();
+
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    //  dotnet add package AspNetCore.HealthChecks.UI.Client
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
+app.MapHealthChecksUI();
+
+
 
 app.Run();
