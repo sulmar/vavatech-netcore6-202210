@@ -199,8 +199,8 @@ var app = builder.Build();
 //});
 #endregion
 
-//app.UseMiddleware<ConsoleLoggerMiddleware>();
-//app.UseMiddleware<DebugLoggerMiddleware>();
+// app.UseMiddleware<ConsoleLoggerMiddleware>();
+// app.UseMiddleware<DebugLoggerMiddleware>();
 // app.UseMiddleware<SecretKeyMiddleware>();
 
 app.UseLogger();
@@ -217,6 +217,8 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
+
+// /healthchecks-ui
 app.MapHealthChecksUI();
 
 
