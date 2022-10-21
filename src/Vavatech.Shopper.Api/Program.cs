@@ -204,7 +204,7 @@ var app = builder.Build();
 // app.UseMiddleware<SecretKeyMiddleware>();
 
 app.UseLogger();
-app.UseSecretKey();
+// app.UseSecretKey();
 
 app.UseStaticFiles();
 app.MapEndpoints();

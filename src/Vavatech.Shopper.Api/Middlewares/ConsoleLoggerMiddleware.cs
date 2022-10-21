@@ -13,21 +13,22 @@ namespace Vavatech.Shopper.Api.Middlewares
         }
 
         public class ConsoleLoggerMiddleware
-    {
-        private readonly RequestDelegate next;
-
-        public ConsoleLoggerMiddleware(RequestDelegate next)
         {
-            this.next = next;
-        }
+            private readonly RequestDelegate next;
 
-        public async Task InvokeAsync(HttpContext context)
-        {
-            Console.WriteLine($"{context.Request.Method} {context.Request.Path} {context.Connection.RemoteIpAddress}");
+            public ConsoleLoggerMiddleware(RequestDelegate next)
+            {
+                this.next = next;
+            }
 
-            await next(context);
+            public async Task InvokeAsync(HttpContext context)
+            {
+                Console.WriteLine($"{context.Request.Method} {context.Request.Path} {context.Connection.RemoteIpAddress}");
 
-            Console.WriteLine($"{context.Response.StatusCode}");
+                await next(context);
+
+                Console.WriteLine($"{context.Response.StatusCode}");
+            }
         }
     }
 }
