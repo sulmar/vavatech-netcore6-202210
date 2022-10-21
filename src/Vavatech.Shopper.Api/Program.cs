@@ -47,6 +47,7 @@ builder.Configuration.AddEnvironmentVariables("API"); // --API_NbpApi = USD
 // https://weblog.west-wind.com/posts/2016/Jun/06/Publishing-and-Running-ASPNET-Core-Applications-with-IIS#running-iis-as-a-development-server-no
 
 builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>(); // rejestracja us³ugi w kontenerze wstrzykiwania zale¿noœci (Dependency Injection)
+builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
 
 builder.Services.AddTransient<IValidator<Customer>, CustomerValidator>();
 
