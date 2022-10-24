@@ -1,4 +1,8 @@
 # Tworzenie usług sieciowych w .NET 6
+Przykłady ze szkolenia.
+
+![Mind map of.NET 6](/drafts/aspnet-core6.png)
+
 
 ## Podstawy
 
