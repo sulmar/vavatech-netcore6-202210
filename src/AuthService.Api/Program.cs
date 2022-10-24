@@ -13,11 +13,13 @@ builder.Services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
 
 var app = builder.Build();
 
-app.MapPost("api/token/create", (AuthModel model, IAuthService authService, ITokenService tokenService) =>
+app.MapPost("api/token/create", (AuthModel model, IAuthService authService, ITokenService tokenService, HttpResponse response) =>
 {
     if (authService.TryAuthorize(model.Login, model.Password, out User user))
     { 
         var token = tokenService.Create(user);
+
+        response.Cookies.Append("X-Access-Token", token, new CookieOptions { SameSite = SameSiteMode.Strict, Secure = true });
 
         return Results.Ok(token);
     }
