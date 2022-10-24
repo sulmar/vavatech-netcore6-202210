@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Vavatech.Shopper.Api.AuthorizationRequirements;
 
 namespace Vavatech.Shopper.Api.Controllers
 {
@@ -43,14 +44,19 @@ namespace Vavatech.Shopper.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public ActionResult<Product> Get(int id)
+        public async Task<ActionResult<Product>> Get(int id, [FromServices] IAuthorizationService authorizationService)
         {
             Product product = _productRepository.Get(id);
 
             if (product == null)
                 return NotFound();
-            else
+
+            var result = await authorizationService.AuthorizeAsync(User, product, new TheSameOwnerRequirement());
+
+            if (result.Succeeded)
                 return Ok(product);
+            else
+                return Forbid();
         }
 
         //[HttpPost]

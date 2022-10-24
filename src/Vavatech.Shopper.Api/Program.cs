@@ -197,6 +197,7 @@ builder.Services.AddAuthorization(options=>
 });
 
 builder.Services.AddTransient<IAuthorizationHandler, MinimumAgeHandler>();
+builder.Services.AddTransient<IAuthorizationHandler, TheSameProductOwnerHandler>();
 
 var app = builder.Build();
 

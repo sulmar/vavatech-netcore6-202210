@@ -12,5 +12,6 @@ namespace Vavatech.Shopper.Domain
         public string Name { get; set; }
         public string Color { get; set; }
         public decimal Price { get; set; }
+        public string Owner { get; set; }
     }
 }

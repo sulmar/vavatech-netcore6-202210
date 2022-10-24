@@ -4,6 +4,7 @@ using Vavatech.Shopper.Api.AuthorizationRequirements;
 
 namespace Vavatech.Shopper.Api.AuthorizationHandlers
 {
+
     public static class MinimumAgeRequirementExtensions
     {
         public static AuthorizationPolicyBuilder RequireMinimumAge(this AuthorizationPolicyBuilder policy, int age)
