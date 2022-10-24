@@ -4,8 +4,8 @@
 
 @baseUri={{protocol}}://{{host}}:{{port}}
 
-@login = "john"
-@password = "123"
+@login = john
+@password = 123
 
 ###
 
