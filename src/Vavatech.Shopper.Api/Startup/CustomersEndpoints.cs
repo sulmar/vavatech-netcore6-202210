@@ -48,7 +48,7 @@ namespace Vavatech.Shopper.Api.Startup
                 .WithName("GetCustomerById")
                 .Produces<Customer>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status404NotFound)
-                .RequireAuthorization();
+                .RequireAuthorization("Adult");
                 
 
             app.MapGet("/api/customers/{name}", (string name) => $"Hello Customer {name}");

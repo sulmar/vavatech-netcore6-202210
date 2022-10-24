@@ -11,9 +11,9 @@ namespace AuthService.Api.Infrastructure
         {
             var users = new List<User>
             {
-                new User { Id = 1, UserName = "john", HashedPassword = "123", Email = "john@domain.com" },
-                new User { Id = 2, UserName = "kate", HashedPassword = "123", Email = "kate@domain.com" },
-                new User { Id = 3, UserName = "bob", HashedPassword = "123" , Email = "bob@domain.com"},
+                new User { Id = 1, UserName = "john", HashedPassword = "123", Email = "john@domain.com", DateOfBirth = DateTime.Parse("1980-01-01") },
+                new User { Id = 2, UserName = "kate", HashedPassword = "123", Email = "kate@domain.com", DateOfBirth = DateTime.Parse("1990-01-01") },
+                new User { Id = 3, UserName = "bob", HashedPassword = "123" , Email = "bob@domain.com", DateOfBirth = DateTime.Parse("2010-01-01")},
             };
 
             foreach (var user in users)

@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +12,7 @@ using Serilog;
 using Serilog.Formatting.Compact;
 using System.Diagnostics;
 using System.Text;
+using Vavatech.Shopper.Api.AuthorizationHandlers;
 using Vavatech.Shopper.Api.HealthChecks;
 using Vavatech.Shopper.Api.Middlewares;
 using Vavatech.Shopper.Api.Services;
@@ -182,19 +184,19 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = "http://myshopper.com"
     };
 
-    options.Events.OnMessageReceived = context => {
-
-        if (context.Request.Cookies.ContainsKey("X-Access-Token"))
-        {
-            context.Token = context.Request.Cookies["X-Access-Token"];
-        }
-
-        return Task.CompletedTask;
-    };
+   
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options=>
+{
+    options.AddPolicy("Adult", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireMinimumAge(18);
+    });
+});
 
+builder.Services.AddTransient<IAuthorizationHandler, MinimumAgeHandler>();
 
 var app = builder.Build();
 

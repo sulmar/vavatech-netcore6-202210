@@ -20,6 +20,7 @@ namespace AuthService.Api.Infrastructure
 
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserName));
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            identity.AddClaim(new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToShortDateString()));
 
             identity.AddClaim(new Claim(ClaimTypes.Role, "Developer"));
             identity.AddClaim(new Claim(ClaimTypes.Role, "Trainer"));
