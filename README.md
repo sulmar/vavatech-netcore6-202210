@@ -30,3 +30,7 @@
 - ``` dotnet sln remove {folder}``` - usunięcie projektu z folderu z rozwiązania
 - ``` dotnet sln add {project.csproj}``` - dodanie projektu do rozwiązania
 - ``` dotnet sln remove {project.csproj}``` - usunięcie projektu z rozwiązania
+
+## Dodatki do Visual Studio 
+- [Rainbow Braces](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RainbowBraces)
+- [REST Client](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient)
