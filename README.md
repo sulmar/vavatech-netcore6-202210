@@ -38,18 +38,18 @@ Przykłady ze szkolenia.
 ### Konfiguracja
 
 #### Dostawcy
-	- AddJsonFile
-	- AddCommandLine
-	- AddEnvironmentVariables
-	- AddXmlFile
-	- [AddIniFile](https://minimal-apis.github.io/hello-minimal/#webapplicationbuilder)
-	- AddSecretKey
-	- AddInMemoryCollection
-	- AddKeyPerFile
-	- [AddYamlFile](https://github.com/andrewlock/NetEscapades.Configuration#yaml-configuration-provider)	
+- AddJsonFile
+- AddCommandLine
+- AddEnvironmentVariables
+- AddXmlFile
+- [AddIniFile](https://minimal-apis.github.io/hello-minimal/#webapplicationbuilder)
+- AddSecretKey
+- AddInMemoryCollection
+- AddKeyPerFile
+- [AddYamlFile](https://github.com/andrewlock/NetEscapades.Configuration#yaml-configuration-provider)	
 #### Pobieranie konfiguracji
-	- Configuration
-	- IOptions
+- Configuration
+- IOptions
 
 ### Środowiska
 - Development
@@ -60,11 +60,12 @@ Przykłady ze szkolenia.
 ### [Rejestrowanie logów](https://minimal-apis.github.io/hello-minimal/#logging)
 
 #### Serilog
-	- Konsola
-	- Plik xml
-	- Plik json
-	- Seq 
+- Konsola
+- Plik xml
+- Plik json
+- Seq 
 
+#### OpenTelemetry
 - [OpenTelemetry](https://opentelemetry.io)
 - [Jeager](https://www.jaegertracing.io)
 
