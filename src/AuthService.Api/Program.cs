@@ -27,7 +27,11 @@ app.MapPost("api/token/create", (AuthModel model, IAuthService authService, ITok
     {
         return Results.BadRequest(new { message = "Username or password is incorrect." });
     }
-});
+}).WithName("CreateToken");
+
+    app.MapGet("/", (LinkGenerator linker) => $"Use endpoint POST {linker.GetPathByName("CreateToken", null)}");
+
+    
 
 
 app.Run();
