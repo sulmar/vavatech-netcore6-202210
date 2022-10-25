@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Refit;
@@ -12,6 +13,7 @@ using Serilog;
 using Serilog.Formatting.Compact;
 using System.Diagnostics;
 using System.Text;
+using System.Text.Json.Serialization;
 using Vavatech.Shopper.Api.AuthorizationHandlers;
 using Vavatech.Shopper.Api.HealthChecks;
 using Vavatech.Shopper.Api.Middlewares;
@@ -198,6 +200,12 @@ builder.Services.AddAuthorization(options=>
 
 builder.Services.AddTransient<IAuthorizationHandler, MinimumAgeHandler>();
 builder.Services.AddTransient<IAuthorizationHandler, TheSameProductOwnerHandler>();
+
+// Ustawienie opcji serializatora JSON
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()); // Serializacja enum do tekstu zamiast domyœlnie do liczby
+});
 
 var app = builder.Build();
 
