@@ -45,7 +45,7 @@ namespace Vavatech.Shopper.Api.Startup
                 Customer customer => Results.Ok(customer),
                 null => Results.NotFound()
             })
-                .WithName("GetCustomerById")
+                .WithName(Endpoints.Customer.GetById)
                 .Produces<Customer>(StatusCodes.Status200OK)
                 .Produces(StatusCodes.Status404NotFound)
                 .RequireAuthorization("Adult");
@@ -93,7 +93,7 @@ namespace Vavatech.Shopper.Api.Startup
                 // zła praktyka
                 //   return Results.Created($"http://localhost:5000/api/customers/{customer.Id}", customer);
 
-                return Results.CreatedAtRoute("GetCustomerById", new { customer.Id }, customer);
+                return Results.CreatedAtRoute(Endpoints.Customer.GetById, new { customer.Id }, customer);
 
             });
 
